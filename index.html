@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>تۆمارکردنی سەردانی کڕیاران</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.png">
+
+<style>
+
+*{
+box-sizing:border-box;
+font-family:Tahoma;
+}
+
+body{
+background:#f5f7fa;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+h1{
+text-align:center;
+color:#0066cc;
+margin-bottom:25px;
+}
+
+label{
+display:block;
+margin-top:12px;
+font-weight:bold;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:12px;
+margin-top:5px;
+border:1px solid #ddd;
+border-radius:8px;
+font-size:15px;
+}
+
+textarea{
+height:100px;
+resize:vertical;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:20px;
+background:#0066cc;
+color:white;
+border:none;
+border-radius:8px;
+font-size:17px;
+cursor:pointer;
+}
+
+button:disabled{
+background:#888;
+cursor:not-allowed;
+}
+
+.loading{
+display:none;
+margin-top:15px;
+text-align:center;
+font-weight:bold;
+color:#0066cc;
+}
+
+.required{
+color:red;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📊 تۆمارکردنی سەردانی کڕیاران</h1>
+
+<form id="customerForm">
+
+<label>
+ناوی کارمەند
+<span class="required">*</span>
+</label>
+<input id="employee" required>
+
+<label>ناوی کڕیار</label>
+<input id="customer">
+
+<label>ژمارەی مۆبایل</label>
+<input id="phone">
+
+<label>
+جۆری کڕیار
+<span class="required">*</span>
+</label>
+<select id="customerType" required>
+<option value="">هەڵبژێرە</option>
+<option>خاوەن ئۆتۆمبێل</option>
+<option>وەرشە</option>
+<option>فرۆشگای ڕۆن</option>
+<option>ڤێتەر</option>
+<option>کۆمپانیا</option>
+</select>
+
+<label>
+شار
+<span class="required">*</span>
+</label>
+
+<select id="city" required>
+
+<option value="">هەڵبژێرە</option>
+
+<optgroup label="هەرێمی کوردستان">
+<option>هەولێر</option>
+<option>سلێمانی</option>
+<option>دهۆک</option>
+<option>هەڵەبجە</option>
+</optgroup>
+
+<optgroup label="عێراق">
+<option>بەغدا</option>
+<option>کەرکووک</option>
+<option>موسڵ</option>
+<option>بەسرە</option>
+<option>کەربەلا</option>
+<option>نەجەف</option>
+<option>واسیط</option>
+<option>دیالە</option>
+<option>سامەڕا</option>
+<option>میسان</option>
+<option>ناسیریە</option>
+<option>بابڵ</option>
+<option>ئەنبار</option>
+<option>سەلاحەدین</option>
+<option>موثەنا</option>
+<option>قادسیە</option>
+</optgroup>
+
+</select>
+
+<label>جۆری ئۆتۆمبێل</label>
+<input id="carType">
+
+<label>مۆدێل</label>
+<select id="carModel">
+<option value="">هەڵبژێرە</option>
+</select>
+
+<label>
+داواکراوی سەرەکی
+<span class="required">*</span>
+</label>
+
+<select id="product" required>
+<option value="">هەڵبژێرە</option>
+<option>ڕۆنی كاز</option>
+<option>ڕۆنی بانزين</option>
+<option>فلتەر</option>
+<option>ڕۆن و فلتەر</option>
+<option>بەرهەمەکانی تر</option>
+</select>
+
+<label>
+کڕینی کرد؟
+<span class="required">*</span>
+</label>
+
+<select id="purchased" required>
+<option value="">هەڵبژێرە</option>
+<option>بەڵێ</option>
+<option>نەخێر</option>
+</select>
+
+<label>
+سەرچاوەی ناسین
+<span class="required">*</span>
+</label>
+
+<select id="source" required>
+<option value="">هەڵبژێرە</option>
+<option>کڕیاری هەمیشەیی</option>
+<option>سۆشیال میدیا</option>
+<option>ڤێتەر</option>
+<option>هاوڕێ</option>
+<option>مندووب</option>
+<option>گەڕان لە گۆگڵ</option>
+</select>
+
+<label>
+کڕیاری نوێ یان هەمیشەیی؟
+  <span class="required">*</span>
+</label>
+
+<select id="customerStatus" required>
+<option value="">هەڵبژێرە</option>
+<option>نوێ</option>
+<option>هەمیشەیی</option>
+</select>
+
+<label>تێبینی</label>
+<textarea id="note"></textarea>
+
+<button id="submitBtn" type="submit">
+تۆمارکردن
+</button>
+
+<div class="loading" id="loading">
+⏳ تکایە چاوەڕێ بکە...
+</div>
+
+</form>
+
+</div>
+
+<script>
+
+const WEBAPP_URL =
+"https://script.google.com/macros/s/AKfycbwe5uPpIMNm6nZRaLlSaciZxnoIlwwLEEF0fOLo_EqHRP_tNp-vtEMtaa7RdoklBxqp/exec";
+
+const employeeInput =
+document.getElementById("employee");
+
+employeeInput.value =
+localStorage.getItem("employee") || "";
+
+const modelSelect =
+document.getElementById("carModel");
+
+for(let year = new Date().getFullYear(); year >= 1980; year--){
+
+const option =
+document.createElement("option");
+
+option.value = year;
+option.textContent = year;
+
+modelSelect.appendChild(option);
+
+}
+
+document
+.getElementById("customerForm")
+.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const btn = document.getElementById("submitBtn");
+const loading = document.getElementById("loading");
+
+try {
+
+btn.disabled = true;
+btn.innerHTML = "⏳ چاوەڕێ بکە...";
+loading.style.display = "block";
+
+localStorage.setItem("employee", employeeInput.value);
+
+const formData = new FormData();
+
+formData.append("employee", employeeInput.value);
+formData.append("customer", document.getElementById("customer").value);
+formData.append("phone", document.getElementById("phone").value);
+formData.append("customerType", document.getElementById("customerType").value);
+formData.append("city", document.getElementById("city").value);
+formData.append("carType", document.getElementById("carType").value);
+formData.append("carModel", document.getElementById("carModel").value);
+formData.append("product", document.getElementById("product").value);
+formData.append("purchased", document.getElementById("purchased").value);
+formData.append("source", document.getElementById("source").value);
+formData.append("customerStatus", document.getElementById("customerStatus").value);
+formData.append("note", document.getElementById("note").value);
+
+const response = await fetch(WEBAPP_URL, {
+  method: "POST",
+  body: formData
+});
+
+const result = await response.text();
+
+if(result === "OK"){
+
+alert("✅ تۆمارکرا");
+
+location.reload();
+
+}else{
+
+alert("هەڵەیەک ڕوویدا");
+
+}
+
+} catch(error){
+
+alert("کێشەی پەیوەندی بە سێرڤەرەوە");
+
+} finally {
+
+btn.disabled = false;
+btn.innerHTML = "تۆمارکردن";
+loading.style.display = "none";
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
